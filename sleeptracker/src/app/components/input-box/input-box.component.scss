@@ -1,0 +1,32 @@
+div
+{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  padding-left: 0.5vw;
+  padding-bottom: 5vh;
+}
+
+h2
+{
+  margin-bottom: 30px;
+}
+
+ion-range{
+  --knob-size: 20px;
+  padding-right: 1vw;
+  padding-top: 5vh;
+}
+
+.modal_ops
+{
+  position:sticky;
+  left:0;
+  bottom:0;
+}
+
+ion-input
+{
+  margin-top: 5vh;
+}
