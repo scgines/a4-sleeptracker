@@ -19,14 +19,13 @@ ion-range{
   padding-top: 5vh;
 }
 
-.modal_ops
-{
-  position:sticky;
-  left:0;
-  bottom:0;
-}
-
 ion-input
 {
   margin-top: 5vh;
+}
+
+.dateWheel
+{
+  --inner-padding-bottom:30px;
+    --inner-padding-top:30px;
 }

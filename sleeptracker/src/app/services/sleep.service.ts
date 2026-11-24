@@ -13,10 +13,10 @@ export class SleepService {
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
 	constructor() {
-		if(SleepService.LoadDefaultData) {
-			this.addDefaultData();
-		SleepService.LoadDefaultData = false;
-	}
+		// if(SleepService.LoadDefaultData) {
+		// 	this.addDefaultData();
+		// SleepService.LoadDefaultData = false;
+		// }
 	}
 
 	private addDefaultData() {

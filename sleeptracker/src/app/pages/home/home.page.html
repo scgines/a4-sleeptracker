@@ -1,40 +1,47 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Sleep Tracker
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+            @if(confirmClear == false)
+            {
+                <ion-button (click)="changeClearButton()" color="danger" size="small">Clear Data</ion-button>
+            }
+            @else
+            {
+                <span (mouseout)="revertClearButton()">
+                    <ion-button (click)="clearData()" color="danger" fill="solid" size="small">Confirm?</ion-button>
+                </span>
+            }
+      </ion-buttons>
+      <ion-title>Sleep Tracker v.0.0</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div> -->
-
-  <ion-grid>
-    <!-- <app-sleep-log></app-sleep-log> -->
+<ion-content [fullscreen]="true">  
+  <ion-list>
      @for(item of allSleepData; track item)
      {
-        <app-sleep-log [data]=item></app-sleep-log>
+        <app-sleep-log (requestDelete)="deleteLog($event)" [data]=item></app-sleep-log>
      }
-     <!-- <ng-container #log_content></ng-container> -->
-  </ion-grid>
+  </ion-list>
+  <br>
+  <ion-note color="medium" class="ion-margin-horizontal">
+    Want to record a new log? Use the "New Log" on the bottom right toolbar.
+  </ion-note>
 
-  <div id="logger">
-    @if(makeNewLog){
-      <app-input-box (logged)="insertLog($event)" (closed)="hidePopup()"></app-input-box>
-    }
-    @else
-    {
-      <ion-button (click)="displayPopup()">New Log</ion-button>
-    }
-  </div>
+  <!-- <div id="newLogButton">
+    <ion-buttons>
+        <ion-button (click)="displayPopup()" shape="round" fill="solid">+</ion-button>
+    </ion-buttons>
+  </div> -->
 
+  @if(makeNewLog){
+    <app-input-box (logged)="insertLog($event)" (closed)="hidePopup()"></app-input-box>
+  }
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="displayPopup()" fill="solid">New Log</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

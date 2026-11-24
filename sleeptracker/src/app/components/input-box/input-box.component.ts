@@ -1,7 +1,8 @@
 import { Component, EventEmitter, numberAttribute, OnInit, Output, ViewChild} from '@angular/core';
 import { IonInput, IonButton, IonRange, IonDatetime, IonSelect, 
           IonSelectOption, IonDatetimeButton, IonPopover, IonModal,
-          IonContent, IonItem, IonList, IonLabel} from '@ionic/angular/standalone';
+          IonContent, IonItem, IonList, IonLabel, IonToolbar, IonFooter, IonHeader, IonTitle,
+          IonRow, IonCol, IonGrid, IonItemGroup, IonButtons} from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { SleepService } from 'src/app/services/sleep.service';
 import { SleepData } from 'src/app/data/sleep-data';
@@ -17,7 +18,9 @@ import { OvernightSleepData } from 'src/app/data/overnight-sleep-data';
     IonRange, IonDatetime, IonSelect, 
     IonSelectOption, IonDatetimeButton, 
     IonDatetime, IonPopover, IonModal, IonContent,
-    IonItem, IonList, IonLabel
+    IonItem, IonList, IonLabel, IonToolbar, IonFooter, IonHeader, IonTitle,
+    IonGrid, IonRow, IonCol, IonItemGroup,
+    IonButtons
   ],
 })
 export class InputBoxComponent  implements OnInit {
@@ -30,14 +33,13 @@ export class InputBoxComponent  implements OnInit {
   openModal:boolean=false;
 
   logtype:string="";
-  rating:number = 0;
+  rating:number = 1;
   message:string = "";
 
-  date_string:string = "";
-  time_string:string = "";
+  logdate:string = new Date().toISOString();
 
-  sleepStart:Date = new Date();
-  sleepEnd:Date = new Date();
+  sleepStart:string = new Date().toISOString();
+  sleepEnd:string = new Date().toISOString();
 
   sleepRange:string = "";
 
@@ -49,8 +51,7 @@ export class InputBoxComponent  implements OnInit {
   {
     if(this.logtype == "Sleepiness")
     {
-      console.log(this.dateTime)
-      var data_log = new StanfordSleepinessData(this.rating, this.dateTime);
+      var data_log = new StanfordSleepinessData(this.rating, new Date(this.logdate));
       this.sleepService.logSleepinessData(data_log);
       console.log(SleepService.AllSleepData);
       this.rating = 0;
@@ -63,7 +64,9 @@ export class InputBoxComponent  implements OnInit {
       console.log(this.sleepStart)
       var data_log2 = new OvernightSleepData(new Date(this.sleepStart), new Date(this.sleepEnd)); 
       this.sleepService.logOvernightData(data_log2);
-      console.log(this.sleepRange);
+      
+      this.modal.dismiss();
+      this.logged.emit(data_log2);
     }
   }
 
@@ -87,10 +90,5 @@ export class InputBoxComponent  implements OnInit {
       'No longer fighting sleep, sleep onset soon; having dream-like thoughts'
     ];
     return scaleValues[value];
-  }
-
-  get dateTime()
-  {
-    return new Date(`${this.date_string} ${this.time_string}`);
   }
 }

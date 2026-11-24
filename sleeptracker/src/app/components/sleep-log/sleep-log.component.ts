@@ -1,19 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IonCol, IonRow} from '@ionic/angular/standalone';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+
+import { 
+          IonCol, IonRow, IonButton, IonItemSliding, IonItem, 
+          IonItemOptions, IonItemOption, IonIcon, IonItemDivider, IonLabel} from '@ionic/angular/standalone';
 
 import { SleepData } from 'src/app/data/sleep-data';
 import { StanfordSleepinessData } from 'src/app/data/stanford-sleepiness-data';
-import { OvernightSleepData } from 'src/app/data/overnight-sleep-data';
 
 @Component({
   selector: 'app-sleep-log',
   templateUrl: './sleep-log.component.html',
   styleUrls: ['./sleep-log.component.scss'],
-  imports:[IonCol, IonRow]
+  imports:[
+    IonCol, IonRow, IonButton, IonItemSliding, IonItem, IonItemOption, IonItemOptions, IonIcon,
+    IonItemDivider, IonLabel
+  ]
 })
 export class SleepLogComponent  implements OnInit {
 
   @Input() data:SleepData = new SleepData();
+  @Output() requestDelete = new EventEmitter();
+
+  confirmDelete = false;
   date = this.data.dateString();
   summary =this.data.summaryString();
   type="";
@@ -30,6 +38,27 @@ export class SleepLogComponent  implements OnInit {
       this.type = "Sleepiness"
     }
 
+  }
+
+  deleteLog()
+  {
+    var elem = document.getElementById(this.data.id);
+
+    if(elem != null)
+      elem.remove();
+
+    this.requestDelete.emit(this.data);
+  }
+
+  revertDeleteButton()
+  {
+    console.log("I was called!");
+    this.confirmDelete = false;
+  }
+
+  changeDeleteButton()
+  {
+    this.confirmDelete = true;
   }
 
 }
