@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonFooter, IonButtons, IonNote} from '@ionic/angular/standalone';
-import { IonGrid, IonRow, IonCol, IonButton, IonList} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonFooter, IonButtons, IonNote, IonToast} from '@ionic/angular/standalone';
+import { IonGrid, IonRow, IonCol, IonButton, IonList, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon} from '@ionic/angular/standalone';
 import { SleepService } from '../../services/sleep.service';
 import { SleepData } from '../../data/sleep-data';
 import { OvernightSleepData } from '../../data/overnight-sleep-data';
@@ -10,6 +10,8 @@ import { SleepLogComponent } from 'src/app/components/sleep-log/sleep-log.compon
 import { InputBoxComponent } from 'src/app/components/input-box/input-box.component';
 import { ViewContainerRef } from '@angular/core';
 
+import { addIcons } from 'ionicons';
+import { addOutline, eyeOutline, homeOutline, trashBinOutline } from 'ionicons/icons';
 
 import { Preferences } from '@capacitor/preferences';
 
@@ -20,12 +22,15 @@ import { Preferences } from '@capacitor/preferences';
   imports: [
 	IonHeader, IonToolbar, IonTitle, IonContent, IonInput, 
 	IonGrid, SleepLogComponent, InputBoxComponent, IonRow, IonCol, IonButton,
-	IonFooter, IonButtons, IonNote, IonList],
+	IonFooter, IonButtons, IonNote, IonList, IonTabs, IonTabBar, IonTabButton, IonLabel,
+	IonIcon, IonToast	
+],
 
 })
 export class HomePage {
   constructor(public sleepService:SleepService, public viewContainerRef:ViewContainerRef) {
-	
+	addIcons({homeOutline, eyeOutline, trashBinOutline, addOutline});
+
 	Preferences.get
 	({
 		key: "overnightData",
@@ -84,6 +89,7 @@ export class HomePage {
 	makeNewLog = false;
 	confirmClear = false;
 	loggedDays= new Set();
+	isToastOpen=false;
 
 	@ViewChild('log_content', {
 		read:ViewContainerRef
@@ -92,6 +98,11 @@ export class HomePage {
 
 	ngOnInit() {
 		// console.log(this.allSleepData);
+	}
+
+	setOpen(val:boolean)
+	{
+		this.isToastOpen = val;
 	}
 
 	// getlogDays()
@@ -150,6 +161,7 @@ export class HomePage {
 	{
 		this.hidePopup();
 		this.saveEntry();
+		this.setOpen(true);
 	}
 
 	displayPopup()
@@ -170,6 +182,7 @@ export class HomePage {
 				key:"sleepinessData", 
 				value:JSON.stringify(this.allSleepinessData)
 			})
+
 		} 
 		catch(e)
 		{
@@ -198,5 +211,20 @@ export class HomePage {
 		await Preferences.remove({
       		key: "sleepinessData"
     	});
+
+		this.clearLocalLog();
+	}
+
+	clearLocalLog()
+	{
+		// var logs = document.getElementsByTagName("app-sleep-log");
+		// console.log(logs.length);
+		// while(logs.length > 0)
+		// {	console.log(logs.length);
+		// 	logs[0].remove();
+		// }
+		SleepService.AllOvernightData = [];
+		SleepService.AllSleepinessData = [];
+		SleepService.AllSleepData = [];
 	}
 }

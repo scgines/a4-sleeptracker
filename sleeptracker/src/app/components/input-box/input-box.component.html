@@ -6,7 +6,7 @@
         <ion-toolbar>
           <ion-title>Create New Sleep Log</ion-title>
           <ion-buttons slot="end">
-              <ion-button (click)="closeBox()">CLOSE</ion-button>
+              <ion-button (click)="closeBox()" fill="outline" color="primary">CLOSE</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -78,7 +78,7 @@
               </ion-item>
 
               <ion-item lines="none">
-                <ion-datetime presentation="time-date" preferWheel="true" size="cover" [(ngModel)]="sleepEnd"></ion-datetime>
+                <ion-datetime presentation="time-date" preferWheel="true" size="cover" [(ngModel)]="sleepEnd" [min]="sleepStart"></ion-datetime>
               </ion-item>
             </ion-item-group>
           </ion-list>
@@ -105,7 +105,7 @@
           @if(logtype=="Overnight" || logtype=="Sleepiness")
           {
             <ion-buttons slot="end">
-              <ion-button (click)="updateLog()" fill="solid">SEND</ion-button>
+              <ion-button (click)="updateLog()" fill="solid" color="primary">SEND</ion-button>
             </ion-buttons>
           }
         </ion-toolbar>

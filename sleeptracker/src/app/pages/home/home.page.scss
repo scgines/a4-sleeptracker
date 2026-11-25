@@ -46,9 +46,21 @@ ion-title
   align-items: center;
 }
 
+#lower_content
+{
+  height: 100px;
+}
+
 ion-note
 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#otherAdd
+{
+  position:fixed;
+  bottom: 10vh;
+  right:1vw;
 }

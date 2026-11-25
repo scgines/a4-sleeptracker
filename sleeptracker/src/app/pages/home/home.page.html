@@ -3,7 +3,7 @@
       <ion-buttons slot="end">
             @if(confirmClear == false)
             {
-                <ion-button (click)="changeClearButton()" color="danger" size="small">Clear Data</ion-button>
+                <ion-button (click)="changeClearButton()" color="danger" size="small" fill="outline">Clear Data</ion-button>
             }
             @else
             {
@@ -24,9 +24,6 @@
      }
   </ion-list>
   <br>
-  <ion-note color="medium" class="ion-margin-horizontal">
-    Want to record a new log? Use the "New Log" on the bottom right toolbar.
-  </ion-note>
 
   <!-- <div id="newLogButton">
     <ion-buttons>
@@ -37,11 +34,56 @@
   @if(makeNewLog){
     <app-input-box (logged)="insertLog($event)" (closed)="hidePopup()"></app-input-box>
   }
+  <br>
+
+  @if(allSleepinessData.length == 0 && allOvernightData.length == 0)
+  {
+    <div id="lower_content">
+      <ion-note color="medium" class="ion-margin-horizontal">
+        Want to record a new log? Create your first log with the "New Log" below, or the "+" button on the bottom right.
+      </ion-note>
+      <br>
+      <div id="newLogButton">
+        <ion-button (click)="displayPopup()" fill="solid">New Log</ion-button>
+      </div>
+    </div>
+  }
+
+
+
+  <ion-button id="otherAdd" (click)="displayPopup()" shape="round" size="large">
+    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+  </ion-button>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    message="Log Sucessfully Added!"
+    [duration]="2000"
+    (didDismiss)="setOpen(false)"
+    positionAnchor="toolbar"
+  ></ion-toast>
+
 </ion-content>
-<ion-footer>
+
+<!-- <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button (click)="displayPopup()" fill="solid">New Log</ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
+
+<ion-toolbar id="toolbar">
+  <ion-tabs>
+      <ion-tab-bar>
+          <ion-tab-button routerLink="menu" href="/menu">
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-tab-button>
+          <ion-tab-button routerLink="home" href="/home">
+            <ion-icon name="eye-outline"></ion-icon>
+            <ion-label>View Log</ion-label>
+          </ion-tab-button>
+      </ion-tab-bar>
+  </ion-tabs>
+</ion-toolbar>
