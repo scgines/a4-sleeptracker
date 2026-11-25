@@ -36,13 +36,13 @@
 
 
 7. Did you design your app specifically for iOS or Android, or both?
-    Given that I didn't incorperate any platform-specific features, it should work in both iOS and Andriod platforms.
+    Given that I didn't incorporate any platform-specific features, it should work in both iOS and Android platforms.
 
 
 8. How can a person log overnight sleep in your app? Why did you choose to support logging overnight sleep in this way?
     If its their first log, a person can log overnight sleep by clicking on the "New Log" button at the top of the screen, and filling out a form that appears through a modal.
-    Otherwise, they can click on the "+" buttion on the bottom right portion of the screen. I chose to support logging in these ways
-    because they felt the most familiar, in terms of relative location of the thumbs, as well as the convention this shars between
+    Otherwise, they can click on the "+" button on the bottom right portion of the screen. I chose to support logging in these ways
+    because they felt the most familiar, in terms of relative location of the thumbs, as well as the convention this shares between
     other applications like the "Notes" app in iOS.
 
 
@@ -52,9 +52,9 @@
 
 
 10. How can a person view the data they logged in your app? Why did you choose to support viewing logged data in this way?
-    When a user add a log in the "View Log" page of the application, it gets inserted as a box/item in the interface, displaying the relavant information in ascending order.
-    I chose to represent the log in this way to imitate the way that applications with calandar features like Canvas display their information. This is also why
-    both overnight logs and sleepiness logs share the same space, deliniated by their different formatting. It is portray this sense of lineararity.
+    When a user add a log in the "View Log" page of the application, it gets inserted as a box/item in the interface, displaying the relevant information in ascending order.
+    I chose to represent the log in this way to imitate the way that applications with calendar features like Canvas display their information. This is also why
+    both overnight logs and sleepiness logs share the same space, delineated by their different formatting. It is portray this sense of linearity.
 
 
 11. Which feature choose--using a native device resource, backing up logged data, or both?
@@ -69,8 +69,8 @@
     The data is backed up to platform's local storage.
 
 14. How does your app implement or follow principles of good mobile design?
-    Despite the application using mostly exclusively default Ionic styling, the application follows platform conventions like having a naviagtion bar and slide-delete implementation.
+    Despite the application using mostly exclusively default Ionic styling, the application follows platform conventions like having a navigation bar and slide-delete implementation.
     The ability to delete individual logs also allows users to accessibly undo logs they may have added unintentionally.
-    Every delete operation does not immediatey delete the log, but instead prompts an "Are You Sure" button, adding layer to prevent accidental deletions.
-    Every form that the user fills out enforce defaults that prevent any impossible logs (particulary restricting the endSleep Date to later than the startSleep Date), prevnting users from creating invalid logs.
+    Every delete operation does not immediately delete the log, but instead prompts an "Are You Sure" button, adding layer to prevent accidental deletions.
+    Every form that the user fills out enforce defaults that prevent any impossible logs (particularly restricting the endSleep Date to later than the startSleep Date), preventing users from creating invalid logs.
     There are directions and first-time interactions/instructions that guide the user and make the experience easier. 
